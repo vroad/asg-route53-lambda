@@ -129,6 +129,11 @@ func Handler(ctx context.Context, snsEvent *events.SNSEvent) error {
 		return err
 	}
 
+	if event.LifecycleTransition != "autoscaling:EC2_INSTANCE_LAUNCHING" && event.LifecycleTransition != "autoscaling:EC2_INSTANCE_TERMINATING" {
+		fmt.Println("The event does not contain supported LifecycleTransition, exiting.")
+		return nil
+	}
+
 	session := session.Must(session.NewSession())
 	asgClient := autoscaling.New(session)
 	err = lifecycleEventHandler(session, &event)
