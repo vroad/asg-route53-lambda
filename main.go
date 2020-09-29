@@ -49,7 +49,7 @@ func appendZoneConfig(zoneConfigLoader *asgroute53.Route53ZoneConfigLoader,
 	zoneConfigs []*asgroute53.Route53ZoneConfig,
 	tags *[]*ec2.Tag,
 	isPublic bool) ([]*asgroute53.Route53ZoneConfig, error) {
-	zoneConfig, err := zoneConfigLoader.Load(tags, false)
+	zoneConfig, err := zoneConfigLoader.Load(tags, isPublic)
 	if err != nil {
 		return nil, err
 	}
